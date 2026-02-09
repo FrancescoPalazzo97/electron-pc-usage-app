@@ -1,0 +1,16 @@
+{
+    "appId": "com.francesco.pc-monitoring-app",
+    "author": "Francesco Palazzo",
+    "files": ["dist-electron", "dist-react"],
+    "icon": "./logo.png",
+    "mac": {
+        "target": "dmg"
+    },
+    "linux": {
+        "target": "AppImage",
+        "category": "Utility"
+    },
+    "win": {
+        "target": ["portable", "msi"]
+    }
+}
