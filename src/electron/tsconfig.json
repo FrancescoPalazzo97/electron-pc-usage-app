@@ -4,6 +4,7 @@
         "target": "esnext", // tell TS to generate ESM Syntax
         "module": "nodenext", // tel TS to require ESM Syntax as input (including .js file imports)
         "outDir": "../../dist-electron", // define where to put generated JS
-        "skipLibCheck": true // ingnore errors from dependencies
+        "skipLibCheck": true, // ingnore errors from dependencies
+        "types": ["../../types"] // add global types
     }
 }
