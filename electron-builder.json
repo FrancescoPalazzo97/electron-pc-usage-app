@@ -3,6 +3,7 @@
     "author": "Francesco Palazzo",
     "files": ["dist-electron", "dist-react"],
     "icon": "./logo.png",
+    "extraResources": ["dist-electron/preload.cjs"],
     "mac": {
         "target": "dmg"
     },
