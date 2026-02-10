@@ -12,7 +12,6 @@ export function pollResources(mainWindow: BrowserWindow) {
         const ramUsage = getRamUsage();
         const storageData = getStorageData();
         const data = { cpuUsage, ramUsage, storageUsage: storageData.usage };
-
         ipcWebContentsSend("statistics", mainWindow.webContents, data);
     }, POLLING_INTERVAL);
 }
