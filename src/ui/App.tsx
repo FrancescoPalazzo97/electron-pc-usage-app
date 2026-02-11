@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import reactLogo from './assets/react.svg'
+import reactLogo from '../assets/react.svg'
 import './App.css'
 import { useStatistics } from './hooks/useStatistics';
 import { Chart } from './components/Chart';

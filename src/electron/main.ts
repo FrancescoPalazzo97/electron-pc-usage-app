@@ -1,7 +1,8 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, Tray } from "electron";
 import { icpMainHandle, isDev } from "./utill.js";
 import { getStaticData, pollResources } from "./resourceManager.js";
-import { getPreloadPath, getUIPath } from "./pathResolver.js";
+import { getAssetPath, getPreloadPath, getUIPath } from "./pathResolver.js";
+import path from "path";
 
 app.on("ready", () => {
     const mainWindow = new BrowserWindow({
@@ -20,4 +21,6 @@ app.on("ready", () => {
     icpMainHandle("getStaticData", () => {
         return getStaticData();
     });
+
+    new Tray(path.join(getAssetPath(), "logo-react@5x.png"));
 });
