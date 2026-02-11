@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import reactLogo from '../assets/react.svg'
 import './App.css'
 import { useStatistics } from './hooks/useStatistics';
@@ -7,6 +7,7 @@ import { Chart } from './components/Chart';
 function App() {
   const [count, setCount] = useState(0);
   const statistics = useStatistics(10);
+  const [activeView, setActiveView] = useState<View>("CPU");
 
   const cpuUsage = useMemo(
     () => statistics.map(stat => stat.cpuUsage),
@@ -23,18 +24,33 @@ function App() {
     [statistics]
   );
 
+  const activeUsages = useMemo(() => {
+    switch (activeView) {
+      case "CPU":
+        return cpuUsage;
+      case "RAM":
+        return ramUsage;
+      case "STORAGE":
+        return storageUsage;
+    }
+  }, [activeView, cpuUsage, ramUsage, storageUsage]);
+
+  useEffect(() => {
+    window.electron.subscribeChangeView((view) => setActiveView(view))
+  }, []);
+
   return (
     <>
       <div>
         <div style={{ height: 120 }}>
-          <Chart data={cpuUsage} maxDataPoints={10} />
+          <Chart data={activeUsages} maxDataPoints={10} />
         </div>
-        <div style={{ height: 120 }}>
+        {/* <div style={{ height: 120 }}>
           <Chart data={ramUsage} maxDataPoints={10} />
         </div>
         <div style={{ height: 120 }}>
           <Chart data={storageUsage} maxDataPoints={10} />
-        </div>
+        </div> */}
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
