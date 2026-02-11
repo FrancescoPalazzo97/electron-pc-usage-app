@@ -1,13 +1,13 @@
 import { app, BrowserWindow, Tray } from "electron";
-import { icpMainHandle, isDev } from "./utill.js";
+import { icpMainHandle, icpMainOn, isDev } from "./utill.js";
 import { getStaticData, pollResources } from "./resourceManager.js";
-import { getAssetPath, getPreloadPath, getUIPath } from "./pathResolver.js";
-import path from "path";
+import { getPreloadPath, getUIPath } from "./pathResolver.js";
 import { createTray } from "./tray.js";
 import { createMenu } from "./menu.js";
 
 app.on("ready", () => {
     const mainWindow = new BrowserWindow({
+        frame: false,
         webPreferences: {
             preload: getPreloadPath()
         }
@@ -22,6 +22,24 @@ app.on("ready", () => {
 
     icpMainHandle("getStaticData", () => {
         return getStaticData();
+    });
+
+    icpMainOn("sendFrameAction", (payload) => {
+        switch (payload) {
+            case "CLOSE":
+                mainWindow.close();
+                break;
+            case "MAXIMIZE":
+                if (mainWindow.isMaximized()) {
+                    mainWindow.unmaximize();
+                } else {
+                    mainWindow.maximize();
+                }
+                break;
+            case "MINIMIZE":
+                mainWindow.minimize();
+                break;
+        }
     });
 
     createTray(mainWindow);
