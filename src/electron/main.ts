@@ -3,6 +3,7 @@ import { icpMainHandle, isDev } from "./utill.js";
 import { getStaticData, pollResources } from "./resourceManager.js";
 import { getAssetPath, getPreloadPath, getUIPath } from "./pathResolver.js";
 import path from "path";
+import { createTray } from "./tray.js";
 
 app.on("ready", () => {
     const mainWindow = new BrowserWindow({
@@ -22,7 +23,7 @@ app.on("ready", () => {
         return getStaticData();
     });
 
-    new Tray(path.join(getAssetPath(), "logo-react@5x.png"));
+    createTray(mainWindow);
 
     handleCloseEvents(mainWindow);
 });
