@@ -109,7 +109,7 @@ test('getStaticData should return valid system info', async () => {
 
 test('should receive statistics data via IPC', async () => {
   const stats = await mainPage.evaluate(() => {
-    return new Promise<{ cpuUsage: number; ramUsage: number; storageUsage: number }>((resolve) => {
+    return new Promise<Statistics>((resolve) => {
       window.electron.subscribeStatistics((statistics) => {
         resolve(statistics);
       });
