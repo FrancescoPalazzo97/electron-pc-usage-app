@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useState } from 'react'
-import reactLogo from '../assets/react.svg'
 import './App.css'
 import { useStatistics } from './hooks/useStatistics';
 import { Chart } from './components/Chart';
+import { Header } from './components/Header';
+import { SelectOption } from './components/SelectOption';
+import { useStaticData } from './hooks/useStaticData';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const staticData = useStaticData();
   const statistics = useStatistics(10);
   const [activeView, setActiveView] = useState<View>("CPU");
 
@@ -42,13 +44,40 @@ function App() {
   return (
     <>
       <div>
-        <header>
-          <button id='minimize' onClick={() => window.electron.sendFrameAction("MINIMIZE")} />
-          <button id='maximize' onClick={() => window.electron.sendFrameAction("MAXIMIZE")} />
-          <button id='close' onClick={() => window.electron.sendFrameAction("CLOSE")} />
-        </header>
-        <div id='chart' style={{ height: 120 }}>
-          <Chart data={activeUsages} maxDataPoints={10} />
+
+        <Header />
+
+        <div className='main'>
+          <div>
+            <SelectOption
+              title="CPU"
+              subTitle={staticData?.cpuModel ?? ''}
+              data={cpuUsage}
+              onclick={() => setActiveView("CPU")}
+              view="CPU"
+            />
+            <SelectOption
+              title="RAM"
+              subTitle={`${staticData?.totalMemoryGB.toString() ?? ''} GB`}
+              data={ramUsage}
+              onclick={() => setActiveView("RAM")}
+              view="RAM"
+            />
+            <SelectOption
+              title="STORAGE"
+              subTitle={`${staticData?.totalStorage.toString() ?? ''} GB`}
+              data={storageUsage}
+              onclick={() => setActiveView("STORAGE")}
+              view="STORAGE"
+            />
+          </div>
+          <div className='mainGrid'>
+            <Chart
+              data={activeUsages}
+              maxDataPoints={10}
+              selectedView={activeView}
+            />
+          </div>
         </div>
         {/* <div style={{ height: 120 }}>
           <Chart data={ramUsage} maxDataPoints={10} />
@@ -56,22 +85,7 @@ function App() {
         <div style={{ height: 120 }}>
           <Chart data={storageUsage} maxDataPoints={10} />
         </div> */}
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
       </div>
-      <h1>Vite + React 4</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
