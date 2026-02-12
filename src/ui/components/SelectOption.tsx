@@ -1,7 +1,7 @@
 import { Chart } from "./Chart";
 
 type SelectOptionProps = {
-    title: 'CPU' | 'RAM' | 'STORAGE';
+    title: View;
     subTitle: string;
     data: number[];
     onclick: () => void;
