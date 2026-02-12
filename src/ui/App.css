@@ -42,7 +42,8 @@
 }
 
 header {
-  position: absolute;
+  position: fixed;
+  z-index: 1;
   top: 0;
   left: 0;
   width: 100%;
@@ -60,6 +61,10 @@ header button {
   height: 1rem;
   margin: .25rem;
   -webkit-app-region: no-drag;
+}
+
+#chart {
+  padding-top: 2rem;
 }
 
 #close {
