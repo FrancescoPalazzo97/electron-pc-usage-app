@@ -4,7 +4,7 @@ import { BaseChart } from "./BaseChart";
 type ChartProps = {
     data: number[];
     maxDataPoints: number;
-    selectedView: 'CPU' | 'RAM' | 'STORAGE';
+    selectedView: View;
 }
 
 const COLOR_MAP = {
@@ -19,6 +19,10 @@ const COLOR_MAP = {
     STORAGE: {
         stroke: '#1ACF4D',
         fill: '#0B5B22',
+    },
+    GPU: {
+        stroke: '#A855F7',
+        fill: '#581C87',
     },
 }
 

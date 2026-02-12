@@ -2,15 +2,18 @@ type Statistics = {
     cpuUsage: number;
     ramUsage: number;
     storageUsage: number;
+    gpuUsage: number;
 };
 
 type StaticData = {
     totalStorage: number;
     cpuModel: string;
     totalMemoryGB: number;
+    gpuModel: string;
+    totalVramGB: number;
 };
 
-type View = "CPU" | "RAM" | "STORAGE";
+type View = "CPU" | "RAM" | "STORAGE" | "GPU";
 
 type FrameWindowAction = "CLOSE" | "MAXIMIZE" | "MINIMIZE";
 

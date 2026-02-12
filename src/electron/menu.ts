@@ -31,6 +31,10 @@ export function createMenu(mainWindow: BrowserWindow) {
                         {
                             label: "STORAGE",
                             click: () => ipcWebContentsSend("changeView", mainWindow.webContents, "STORAGE")
+                        },
+                        {
+                            label: "GPU",
+                            click: () => ipcWebContentsSend("changeView", mainWindow.webContents, "GPU")
                         }
                     ]
                 }

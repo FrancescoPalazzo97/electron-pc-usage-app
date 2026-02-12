@@ -26,6 +26,11 @@ function App() {
     [statistics]
   );
 
+  const gpuUsage = useMemo(
+    () => statistics.map(stat => stat.gpuUsage),
+    [statistics]
+  );
+
   const activeUsages = useMemo(() => {
     switch (activeView) {
       case "CPU":
@@ -34,8 +39,10 @@ function App() {
         return ramUsage;
       case "STORAGE":
         return storageUsage;
+      case "GPU":
+        return gpuUsage;
     }
-  }, [activeView, cpuUsage, ramUsage, storageUsage]);
+  }, [activeView, cpuUsage, ramUsage, storageUsage, gpuUsage]);
 
   useEffect(() => {
     window.electron.subscribeChangeView((view) => setActiveView(view))
@@ -69,6 +76,13 @@ function App() {
               data={storageUsage}
               onclick={() => setActiveView("STORAGE")}
               view="STORAGE"
+            />
+            <SelectOption
+              title="GPU"
+              subTitle={`${staticData?.gpuModel ?? ''} — ${staticData?.totalVramGB ?? ''} GB`}
+              data={gpuUsage}
+              onclick={() => setActiveView("GPU")}
+              view="GPU"
             />
           </div>
           <div className='mainGrid'>
